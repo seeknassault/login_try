@@ -10,6 +10,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // [START declare_auth]
     private FirebaseAuth mAuth;
     // [END declare_auth]
-
+    Button mybtn;
     private CallbackManager mCallbackManager;
 
     @Override
@@ -54,7 +55,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
-
+        mybtn=(Button)findViewById(R.id.chalo_google);
+        mybtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in=new Intent(MainActivity.this,GoogleSignInActivity.class);
+                startActivity(in);
+                finish();
+            }
+        });
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
         mDetailTextView = (TextView) findViewById(R.id.detail);

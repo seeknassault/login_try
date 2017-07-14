@@ -4,4 +4,6 @@
     <string name="fb_login_protocol_scheme">fb1576280582447178</string>
     <string name="facebook_status_fmt">Facebook User: %s</string>
     <string name="firebase_status_fmt">Firebase User: %s</string>
+    <string name="google_status_fmt">Google: %s</string>
+    <string name="signed_out">Signed out</string>
 </resources>

@@ -15,7 +15,14 @@
         android:layout_gravity="center_horizontal"
         tools:layout_editor_absoluteY="157dp"
         tools:layout_editor_absoluteX="103dp" />
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="google"
+        android:id="@+id/chalo_google"
+        android:layout_marginEnd="18dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
     <TextView
         android:id="@+id/status"
         android:layout_width="wrap_content"
