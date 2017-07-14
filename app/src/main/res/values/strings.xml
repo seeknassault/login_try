@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Login_try_13</string>
+    <string name="facebook_app_id">1576280582447178</string>
+    <string name="fb_login_protocol_scheme">fb1576280582447178</string>
+    <string name="facebook_status_fmt">Facebook User: %s</string>
+    <string name="firebase_status_fmt">Firebase User: %s</string>
+</resources>
