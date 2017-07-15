@@ -3,6 +3,7 @@ package com.example.ankit.login_try_13;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -29,6 +30,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.squareup.picasso.Picasso;
 
 import java.io.InputStream;
 
@@ -105,6 +107,7 @@ public class GoogleSignInActivity extends AppCompatActivity implements
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
+
             } else {
                 // Google Sign In failed, update UI appropriately
                 // [START_EXCLUDE]
@@ -131,8 +134,6 @@ public class GoogleSignInActivity extends AppCompatActivity implements
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Profile profile=Profile.getCurrentProfile();
-                            nextActivity(profile);
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
@@ -188,8 +189,8 @@ public class GoogleSignInActivity extends AppCompatActivity implements
     private void updateUI(FirebaseUser user) {
       //  hideProgressDialog();
         if (user != null) {
-            Profile profile=Profile.getCurrentProfile();
-            nextActivity(profile);
+            ImageView img=(ImageView)findViewById(R.id.google_icon);
+            Picasso.with(this).load(user.getPhotoUrl()).resize(200,200).centerCrop().into(img);
             mStatusTextView.setText(getString(R.string.google_status_fmt, user.getEmail()));
             mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
 
@@ -223,36 +224,5 @@ public class GoogleSignInActivity extends AppCompatActivity implements
             revokeAccess();
         }
     }
-    private void nextActivity(Profile profile){
-        if(profile != null){
 
-            new GoogleSignInActivity.DownloadImage((ImageView)findViewById(R.id.google_icon)).execute(profile.getProfilePictureUri(200,200).toString());
-
-        }
-    }
-    public class DownloadImage extends AsyncTask<String, Void, Bitmap> {
-        ImageView bmImage;
-
-        public DownloadImage(ImageView bmImage){
-            this.bmImage = bmImage;
-        }
-
-        protected Bitmap doInBackground(String... urls){
-            String urldisplay = urls[0];
-            Bitmap mIcon11 = null;
-            try{
-                InputStream in = new java.net.URL(urldisplay).openStream();
-                mIcon11 = BitmapFactory.decodeStream(in);
-            }catch (Exception e){
-                Log.e("Error", e.getMessage());
-                e.printStackTrace();
-            }
-            return mIcon11;
-        }
-
-        protected void onPostExecute(Bitmap result){
-            bmImage.setImageBitmap(result);
-        }
-
-    }
 }
